@@ -1,16 +1,5 @@
 package br.com.facef.rabbitmqpkl.configuration;
-/*
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.ExchangeBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.QueueBuilder;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
- */
 import org.springframework.amqp.core.*;
 
 import org.springframework.context.annotation.Bean;
@@ -29,16 +18,6 @@ public class DirectExchangeConfiguration {
     @Bean
     Queue orderMessagesQueue() {
 
-        /*
-        return QueueBuilder.durable(ORDER_MESSAGES_QUEUE_NAME)
-                .withArgument("x-dead-letter-exchange", "")
-                .withArgument("x-dead-letter-routing-key", ORDER_MESSAGES_QUEUE_DLQ_NAME)
-                .build();
-
-         */
-
-
-
         return QueueBuilder.durable(ORDER_MESSAGES_QUEUE_NAME)
                 .deadLetterExchange(DIRECT_EXCHANGE_NAME)
                 .deadLetterRoutingKey(ORDER_MESSAGES_QUEUE_DLQ_NAME)
@@ -49,12 +28,6 @@ public class DirectExchangeConfiguration {
 
     @Bean
     Queue orderMessagesDeadLetterQueue() {
-/*
-        return QueueBuilder.durable(ORDER_MESSAGES_QUEUE_DLQ_NAME)
-                .ttl(10000)
-                .build();
-*/
-
 
         return QueueBuilder.durable(ORDER_MESSAGES_QUEUE_DLQ_NAME)
                 .deadLetterExchange(DIRECT_EXCHANGE_NAME)

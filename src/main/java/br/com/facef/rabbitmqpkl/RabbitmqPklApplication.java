@@ -17,11 +17,6 @@ import static br.com.facef.rabbitmqpkl.configuration.DirectExchangeConfiguration
 @Slf4j
 public class RabbitmqPklApplication  {
 
-	//implements CommandLineRunner
-
-
-	//@Autowired
-	//private MessageProducer messageProducer;
 	@Autowired
 	RabbitTemplate rabbitTemplate;
 
@@ -29,10 +24,9 @@ public class RabbitmqPklApplication  {
 		SpringApplication.run(RabbitmqPklApplication.class, args);
 	}
 
-
 	@EventListener(ApplicationReadyEvent.class)
 	public void runningAfterStartup() throws Exception {
-		log.info("Running method after startup to send messages!");
+		log.info("Início do envio das mensagens!");
 
 		do {
 			rabbitTemplate.convertAndSend(
@@ -41,28 +35,5 @@ public class RabbitmqPklApplication  {
 					"FAKE-MESSAGE-PKL");
 			Thread.sleep(30000);
 		} while (true);
-
-
-
-
-		//messageProducer.sendFakeMessage();
 	}
-
-
-/*
-	@Override
-	public void run(String... args) throws Exception {
-		//messageProducer.sendFakeMessage();
-
-		do {
-            rabbitTemplate.convertAndSend(
-                    DIRECT_EXCHANGE_NAME,
-                    ORDER_MESSAGES_QUEUE_NAME,
-                    "FAKE-MESSAGE-PKL");
-			Thread.sleep(60000);
-		} while (true);
-
-	}
-
- */
 }
